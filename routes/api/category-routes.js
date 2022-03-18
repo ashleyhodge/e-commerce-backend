@@ -7,13 +7,13 @@ const { restore } = require('../../models/Product');
 router.get('/', (req, res) => {
   // find all categories
   Category.findAll({
-    // be sure to include its associated Products
-    // include: [
-    //   {
-    //     model: Product,
-    //     attributes: ['product_name']
-    //   }
-    // ]
+    //be sure to include its associated Products
+    include: [
+      {
+        model: Product,
+        attributes: ['product_name']
+      }
+    ]
   })
   .then(dbCategoryData => res.json(dbCategoryData))
   .catch(err => {
@@ -30,12 +30,12 @@ router.get('/:id', (req, res) => {
       id: req.params.id
     },
     // be sure to include its associated Products
-    // include: [
-    //   {
-    //     model: Product,
-    //     attributes: ['product_name']
-    //   }
-    // ]
+    include: [
+      {
+        model: Product,
+        attributes: ['product_name']
+      }
+    ]
   })
   .then(dbCategoryData => {
     if(!dbCategoryData) {
