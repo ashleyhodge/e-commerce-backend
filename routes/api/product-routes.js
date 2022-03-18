@@ -8,16 +8,16 @@ router.get("/", (req, res) => {
   // find all products
     Product.findAll({
         // be sure to include its associated Category and Tag data
-        // include: [
-        //     {
-        //         model: Tag,
-        //         attributes: ['tag_name']
-        //     },
-        //     {
-        //         model: Category,
-        //         attributes: ['category_name']
-        //     }
-        // ]
+        include: [
+            {
+                model: Tag,
+                attributes: ['tag_name']
+            },
+            {
+                model: Category,
+                attributes: ['category_name']
+            }
+        ]
     })
     .then(dbProductData => res.json(dbProductData))
     .catch(err => {
@@ -30,17 +30,20 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
   // find a single product by its `id`
     Product.findOne({
+        where: {
+            id: req.params.id
+        },
         // be sure to include its associated Category and Tag data
-        // include: [
-        //     {
-        //         model: Tag,
-        //         attributes: 'tag_name'
-        //     },
-        //     {
-        //         model: Category,
-        //         attributes: 'category_name'
-        //     }
-        // ]
+        include: [
+            {
+                model: Tag,
+                attributes: ['tag_name']
+            },
+            {
+                model: Category,
+                attributes: ['category_name']
+            }
+        ]
     })
     .then(dbProductData => {
         if(!dbProductData) {
@@ -50,7 +53,7 @@ router.get("/:id", (req, res) => {
         res.json(dbProductData);
     })
     .catch(err => {
-        console.lof(err);
+        console.log(err);
         res.status(500).json(err);
     });
 });
