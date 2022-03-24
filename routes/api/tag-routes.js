@@ -10,6 +10,7 @@ router.get('/', (req, res) => {
     include: [
       {
         model: Product,
+        as: 'products',
         attributes: ['product_name']
       }
     ]
@@ -31,6 +32,7 @@ router.get('/:id', (req, res) => {
     include: [
       {
         model: Product,
+        as: 'products',
         attributes: ['product_name']
       }
     ]
@@ -92,6 +94,7 @@ router.delete('/:id', (req, res) => {
     }
   })
   .then(dbTagData => {
+    console.log(dbTagData);
     if(!dbTagData) {
       res.status(404).json({ message: 'No tag found at this id!' });
       return;

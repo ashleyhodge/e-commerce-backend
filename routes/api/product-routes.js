@@ -11,6 +11,7 @@ router.get("/", (req, res) => {
         include: [
             {
                 model: Tag,
+                as: 'tags',
                 attributes: ['tag_name']
             },
             {
@@ -37,6 +38,7 @@ router.get("/:id", (req, res) => {
         include: [
             {
                 model: Tag,
+                as: 'tags',
                 attributes: ['tag_name']
             },
             {
